@@ -1,0 +1,638 @@
+// import React, { useState, useEffect } from 'react';
+// import { Redirect } from 'react-router-dom';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+// import axios from 'axios';
+
+// export default function CourseUpload(props) {
+    
+//     const [allsubjects, setAllsubjects] = useState([]);
+//     const [coursecomponents, setCoursecomponents] = useState([]);
+
+//     const [gradeassinments, setGradeassinments] = useState([])
+//     const [gradeexams, setGradeexams] = useState([])
+//     const [gradequizs, setGradequizs] = useState([])
+//     const [selectassinments, setSelectassinments] = useState([])
+//     const [selectexams, setSelectexams] = useState([])
+//     const [selectgrades, setSelectgrades] = useState([])
+//     const [selectno, setSelectno] = useState([])
+//     const [selectquizs, setSelectquizs] = useState([])
+    
+//     const[Type,setType]=useState('')
+//     const[SubType,setSubType]=useState('')
+//     const[Typehandler,setTypehandle]=useState('')
+
+//     const[componentsdisplay,setComponentsdisplay]=useState('none')
+//     const [gradeassinmentsdisplay, setGradeassinmentsdisplay] = useState('none')
+//     const [gradeexamsdisplay, setGradeexamsdisplay] = useState('none')
+//     const [gradequizsdisplay, setGradequizsdisplay] = useState('none')
+//     const [selectassinmentsdisplay, setSelectassinmentsdisplay] = useState('none')
+//     const [selectexamsdisplay, setSelectexamsdisplay] = useState('none')
+//     const [selectgradesdisplay, setSelectgradesdisplay] = useState('none')
+//     const [selectnodisplay, setSelectnodisplay] = useState('none')
+//     const [selectquizsdisplay, setSelectquizsdisplay] = useState('none')
+
+//     const [subject, setSubject] = useState('');
+    
+//     const [selectedFile, setSelectedFile] = useState(null);
+//     const [loaded, setLoaded] = useState(0);
+//     const [first_Name, setFirst_Name] = useState('');
+//     const [last_name, setLast_Name] = useState('');
+//     const [email, setEmail] = useState('');
+//     const [username, setUsername] = useState('');
+//     const [password, setPassword] = useState('');
+//     const [loadingUser, setLoadingUser] = useState(false);
+//     const [updated, setUpdated] = useState(false);
+//     const [error, setError] = useState(false);
+
+//     useEffect(() => {
+//         setLoadingUser(true)
+//         async function checkcredentials() {
+//             const accessString = localStorage.getItem('JWT');
+//             if (accessString === null) {
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+//             try {
+//                 const response = await axios.get('http://localhost:8000/findUser', {
+//                     params: {
+//                         username: props.username,
+//                     },
+//                     headers: { Authorization: `JWT ${accessString}` },
+//                 });
+//                 console.log(response.data);
+
+//                 setLoadingUser(false)
+//                 setFirst_Name(response.data.first_Name ? response.data.first_Name : '')
+//                 setLast_Name(response.data.last_Name ? response.data.last_Name : '')
+//                 setEmail(response.data.email)
+//                 setUsername(response.data.username)
+//                 setPassword(response.data.password)
+//                 setError(false)
+
+//             } catch (error) {
+//                 console.log(error.response.data);
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+//             try {
+//                 const response = await axios.get('http://localhost:8000/findsubjects', {
+
+//                 });
+                
+//                 let allcourses = []
+//                 allcourses = response.data.map((planet) => {
+//                     return JSON.stringify(planet)
+                    
+//                 });
+
+                
+
+//                 setAllsubjects(allcourses)
+//                 setError(false)
+
+//             } catch (error) {
+//                 console.log(error.response.data);
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+//             try {
+//                 const response = await axios.get('http://localhost:8000/findcoursecomponents', {
+
+//                 });
+//                 let coursecomponent = []
+//                 coursecomponent = response.data.map((planet) => {
+//                     return JSON.stringify(planet)
+//                 });
+
+
+
+//                 setCoursecomponents(coursecomponent)
+
+//                 setError(false)
+
+//             } catch (error) {
+//                 console.log(error.response.data);
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+
+//             try {
+//                 const response = await axios.get('http://localhost:8000/findgradeassinments', {
+
+//                 });
+//                 let coursecomponent = []
+//                 coursecomponent = response.data.map((planet) => {
+//                     return JSON.stringify(planet)
+//                 });
+
+
+
+//                 setGradeassinments(coursecomponent)
+
+//                 setError(false)
+
+//             } catch (error) {
+//                 console.log(error.response.data);
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+
+
+//             try {
+//                 const response = await axios.get('http://localhost:8000/findgradeexams', {
+
+//                 });
+//                 let coursecomponent = []
+//                 coursecomponent = response.data.map((planet) => {
+//                     return JSON.stringify(planet)
+//                 });
+
+
+
+//                 setGradeexams(coursecomponent)
+
+//                 setError(false)
+
+//             } catch (error) {
+//                 console.log(error.response.data);
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+
+
+//             try {
+//                 const response = await axios.get('http://localhost:8000/findgradequizes', {
+
+//                 });
+//                 let coursecomponent = []
+//                 coursecomponent = response.data.map((planet) => {
+//                     return JSON.stringify(planet)
+//                 });
+
+
+
+//                 setGradequizs(coursecomponent)
+
+//                 setError(false)
+
+//             } catch (error) {
+//                 console.log(error.response.data);
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+
+//             try {
+//                 const response = await axios.get('http://localhost:8000/findselectassinments', {
+
+//                 });
+//                 let coursecomponent = []
+//                 coursecomponent = response.data.map((planet) => {
+//                     return JSON.stringify(planet)
+//                 });
+
+
+
+//                 setSelectassinments(coursecomponent)
+
+//                 setError(false)
+
+//             } catch (error) {
+//                 console.log(error.response.data);
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+
+//             try {
+//                 const response = await axios.get('http://localhost:8000/findselectexams', {
+
+//                 });
+//                 let coursecomponent = []
+//                 coursecomponent = response.data.map((planet) => {
+//                     return JSON.stringify(planet)
+//                 });
+
+
+
+//                 setSelectexams(coursecomponent)
+
+//                 setError(false)
+
+//             } catch (error) {
+//                 console.log(error.response.data);
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+
+//             try {
+//                 const response = await axios.get('http://localhost:8000/findselectgrades', {
+
+//                 });
+//                 let coursecomponent = []
+//                 coursecomponent = response.data.map((planet) => {
+//                     return JSON.stringify(planet)
+//                 });
+
+
+
+//                 setSelectgrades(coursecomponent)
+
+//                 setError(false)
+
+//             } catch (error) {
+//                 console.log(error.response.data);
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+
+//             try {
+//                 const response = await axios.get('http://localhost:8000/findselectno', {
+
+//                 });
+//                 let coursecomponent = []
+//                 coursecomponent = response.data.map((planet) => {
+//                     return JSON.stringify(planet)
+//                 });
+
+
+
+//                 setSelectno(coursecomponent)
+
+//                 setError(false)
+
+//             } catch (error) {
+//                 console.log(error.response.data);
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+
+//             try {
+//                 const response = await axios.get('http://localhost:8000/findselectquizes', {
+
+//                 });
+//                 let coursecomponent = []
+//                 coursecomponent = response.data.map((planet) => {
+//                     return JSON.stringify(planet)
+//                 });
+
+
+
+//                 setSelectquizs(coursecomponent)
+
+//                 setError(false)
+
+//             } catch (error) {
+//                 console.log(error.response.data);
+
+//                 setLoadingUser(false)
+//                 setError(true)
+
+//             }
+//         }
+//         checkcredentials()
+
+//     }, [props])
+//     const handleSubjects = (e) => {
+//         if(e.target.value=='')
+//         {
+//             setGradeassinmentsdisplay('none')
+//             setGradeexamsdisplay('none')
+//             setGradequizsdisplay('none')
+//             setSelectassinmentsdisplay('none')
+//             setSelectexamsdisplay('none')
+//             setSelectgradesdisplay('none')
+//             setSelectnodisplay('none')
+//             setSelectquizsdisplay('none')
+//             setComponentsdisplay('none')
+//         }
+//         else{
+//             setComponentsdisplay('block') 
+//             setSubject(e.target.value) 
+//             console.log(subject)
+//         }
+        
+//     }
+
+//     const handleComponents = (e) => {
+//         if(e.target.value=='')
+//         {
+//             setGradeassinmentsdisplay('none')
+//             setGradeexamsdisplay('none')
+//             setGradequizsdisplay('none')
+//             setSelectassinmentsdisplay('none')
+//             setSelectexamsdisplay('none')
+//             setSelectgradesdisplay('none')
+//             setSelectnodisplay('none')
+//             setSelectquizsdisplay('none')
+//         }
+//         else{
+//         axios.get(`http://localhost:8000/findcoursecomponents/${e.target.value}`)
+//         .then(response => {
+//             let Type
+//             let SubType
+//             Type=response.data[0].Type
+//             SubType=response.data[0].SubType
+//             if(SubType=='no')
+//             {
+                  
+//                 setType(Type) 
+//                 setSubType('null')
+//                 setGradeassinmentsdisplay('none')
+//             setGradeexamsdisplay('none')
+//             setGradequizsdisplay('none')
+//             setSelectassinmentsdisplay('none')
+//             setSelectexamsdisplay('none')
+//             setSelectgradesdisplay('none')
+//             setSelectnodisplay('none')
+//             setSelectquizsdisplay('none')
+//             }
+//             else if(SubType=='assinment'){
+//                 setType(Type)
+//                 setSelectassinmentsdisplay('block')
+//                 setGradeassinmentsdisplay('none')
+//             setGradeexamsdisplay('none')
+//             setGradequizsdisplay('none')
+//             setSelectexamsdisplay('none')
+//             setSelectgradesdisplay('none')
+//             setSelectnodisplay('none')
+//             setSelectquizsdisplay('none')
+//             }
+
+//             else if(SubType=='quiz'){
+//                 setType(Type)
+//                 setSelectquizsdisplay('block')
+//                 setGradeassinmentsdisplay('none')
+//             setGradeexamsdisplay('none')
+//             setGradequizsdisplay('none')
+//             setSelectassinmentsdisplay('none')
+//             setSelectexamsdisplay('none')
+//             setSelectgradesdisplay('none')
+//             setSelectnodisplay('none')
+            
+//             }
+//             else if(SubType=='exam'){
+//                 setType(Type)
+//                 setSelectexamsdisplay('block')
+//                 setGradeassinmentsdisplay('none')
+//             setGradeexamsdisplay('none')
+//             setGradequizsdisplay('none')
+//             setSelectassinmentsdisplay('none')
+           
+//             setSelectgradesdisplay('none')
+//             setSelectnodisplay('none')
+//             setSelectquizsdisplay('none')
+//             }
+
+//             else if(SubType=='number'){
+//                 setType(Type)
+//                 setSelectnodisplay('block')
+//                 setGradeassinmentsdisplay('none')
+//             setGradeexamsdisplay('none')
+//             setGradequizsdisplay('none')
+//             setSelectassinmentsdisplay('none')
+//             setSelectexamsdisplay('none')
+//             setSelectgradesdisplay('none')
+//             setSelectquizsdisplay('none')
+//             }
+//             else if(SubType=='gradeexam'){
+//                 setType(Type)
+//                 setGradeexamsdisplay('block')
+//                 setGradeassinmentsdisplay('none')
+//             setGradequizsdisplay('none')
+//             setSelectassinmentsdisplay('none')
+//             setSelectexamsdisplay('none')
+//             setSelectgradesdisplay('none')
+//             setSelectnodisplay('none')
+//             setSelectquizsdisplay('none')
+//             }
+           
+//         else if(SubType=='gradequiz'){
+//             setType(Type)
+//             setGradequizsdisplay('block')
+//             setGradeassinmentsdisplay('none')
+//             setGradeexamsdisplay('none')
+//             setSelectassinmentsdisplay('none')
+//             setSelectexamsdisplay('none')
+//             setSelectgradesdisplay('none')
+//             setSelectnodisplay('none')
+//             setSelectquizsdisplay('none')
+//         }
+//         else if(SubType=='gradeassinment'){
+//             setType(Type)
+//             setGradeassinmentsdisplay('block')
+//             setGradeexamsdisplay('none')
+//             setGradequizsdisplay('none')
+//             setSelectassinmentsdisplay('none')
+//             setSelectexamsdisplay('none')
+//             setSelectgradesdisplay('none')
+//             setSelectnodisplay('none')
+//             setSelectquizsdisplay('none')
+//         }
+//         //console.log(Type)
+//         //   console.log(SubType)
+          
+         
+//         })}
+//     }
+//     const handleGradeassinments = (e) => {
+//         setTypehandle('Assinment No'+e.target.value)
+//         console.log(Typehandler)
+//     }
+//     const handleGradequizs = (e) => {
+//         console.log(e.target.value)
+//     }
+//     const handleGradeexams = (e) => {
+//         console.log(e.target.value)
+//     }
+//     const handleSelectassinments = (e) => {
+//         console.log(e.target.value)
+//     }
+//     const handleSelectquizes = (e) => {
+//         console.log(e.target.value)
+//     }
+//     const handleSelectexams = (e) => {
+//         console.log(e.target.value)
+//     }
+//     const handleSelectno = (e) => {
+//         console.log(e.target.value)
+//     }
+//     const handleGrades = (e) => {
+//         console.log(e.target.value)
+//     }
+
+//     let initialsubjects = allsubjects.map((subject) => {
+//         return JSON.parse(subject)
+//     })
+//     let initialselectassinments = selectassinments.map((component) => {
+//         return JSON.parse(component)
+//     })
+//     let initialselectexams = selectexams.map((component) => {
+//         return JSON.parse(component)
+//     })
+//     let initialselectgrades = selectgrades.map((component) => {
+//         return JSON.parse(component)
+//     })
+//     let initialselectno = selectno.map((component) => {
+//         return JSON.parse(component)
+//     })
+//     let initialselectquizes = selectquizs.map((component) => {
+//         return JSON.parse(component)
+//     })
+//     let initialgradeexams = gradeexams.map((component) => {
+//         return JSON.parse(component)
+//     })
+//     let initialcoursecomponents = coursecomponents.map((component) => {
+//         return JSON.parse(component)
+//     })
+//     let initialgradeassinments = gradeassinments.map((component) => {
+//         return JSON.parse(component)
+//     })
+//     let initialgradequizes = gradequizs.map((component) => {
+//         return JSON.parse(component)
+//     })
+
+//     let optionsubjects = initialsubjects.map((allcourses) =>
+//         <option disabled={allcourses.Department} value={allcourses.Name} style={{ color: "BLACK" }} >{allcourses.Name}</option>
+//     );
+//     let optioncoursecomponents = initialcoursecomponents.map((courses) =>
+//         <option disabled={courses.Department} value={courses.id} style={{ color: "BLACK" }} >{courses.Type}</option>
+//     );
+//     let optiongradeassinments = initialgradeassinments.map((courses) =>
+//         <option disabled={courses.Department} value={courses.no} style={{ color: "BLACK" }} >{courses.no}</option>
+//     );
+//     let optiongradeexams = initialgradeexams.map((courses) =>
+//         <option disabled={courses.Department} value={courses.name} style={{ color: "BLACK" }} >{courses.name}</option>
+//     );
+//     let optiongradequizes = initialgradequizes.map((courses) =>
+//         <option disabled={courses.Department} value={courses.no} style={{ color: "BLACK" }} >{courses.no}</option>
+//     );
+//     let optionselectassinments = initialselectassinments.map((courses) =>
+//         <option disabled={courses.Department} value={courses.no} style={{ color: "BLACK" }} >{courses.no}</option>
+//     );
+//     let optionselectexams = initialselectexams.map((courses) =>
+//         <option disabled={courses.Department} value={courses.name} style={{ color: "BLACK" }} >{courses.name}</option>
+//     );
+//     let optionselectgrades = initialselectgrades.map((courses) =>
+//         <option disabled={courses.Department} value={courses.name} style={{ color: "BLACK" }} >{courses.name}</option>
+//     );
+//     let optionselectno = initialselectno.map((courses) =>
+//         <option disabled={courses.Department} value={courses.no} style={{ color: "BLACK" }} >{courses.no}</option>
+//     );
+//     let optionselectquizes = initialselectquizes.map((courses) =>
+//         <option disabled={courses.Department} value={courses.no} style={{ color: "BLACK" }} >{courses.no}</option>
+//     );
+
+//     if (error) {
+//         return (
+//             <div>
+
+//                 <p>
+//                     There was a problem accessing your data. Please go login again.
+//                 </p>
+
+//             </div>
+//         );
+//     }
+//     if (loadingUser !== false) {
+//         return (
+//             <div>
+
+//                 <p >Loading user data...</p>
+//             </div>
+//         );
+//     }
+//     if (loadingUser === false && updated === true) {
+//         return <p>DDD</p>;
+//     }
+    
+//     if (loadingUser === false) {
+//         return (
+
+
+           
+//             <div>
+//                 <select className="browser-default custom-select pro" onChange={handleSubjects}>
+//                     <option value=''>CHOOSE SUBJECT</option>
+//                     {optionsubjects}
+//                 </select>
+               
+//                 <select className="browser-default custom-select pro" style={{display:`${componentsdisplay}`}} onChange={handleComponents}>
+//                     <option value=''>CHOOSE COURSE COMPONENT</option>
+//                     {optioncoursecomponents}
+//                 </select>
+
+//                 <select className="browser-default custom-select pro" style={{display:`${selectnodisplay}`}} onChange={handleSelectno}>
+//                     <option value=''>CHOOSE LECTURE NO</option>
+//                     {optionselectno}
+//                 </select>
+
+//                 <select className="browser-default custom-select pro" style={{display:`${selectgradesdisplay}`}} onChange={handleGrades}>
+//                     <option value=''>CHOOSE GRADES</option>
+//                     {optionselectgrades}
+//                 </select>
+
+
+
+
+//                 <select className="browser-default custom-select pro" style={{display:`${selectassinmentsdisplay}`}} onChange={handleSelectassinments}>
+//                     <option value=''>CHOOSE ASSINMENT NO</option>
+//                     {optionselectassinments}
+//                 </select>
+
+//                 <select className="browser-default custom-select pro" style={{display:`${selectexamsdisplay}`}} onChange={handleSelectexams}>
+//                     <option value=''>CHOOSE Exams</option>
+//                     {optionselectexams}
+//                 </select>
+
+//                 <select className="browser-default custom-select pro" style={{display:`${selectquizsdisplay}`}} onChange={handleSelectquizes}>
+//                     <option value=''>CHOOSE QUIZ NO</option>
+//                     {optionselectquizes}
+//                 </select>
+
+//                 <select className="browser-default custom-select pro" style={{display:`${gradeassinmentsdisplay}`}} onChange={handleGradeassinments}>
+//                     <option value=''>CHOOSE ASSINMENT NO</option>
+//                     {optiongradeassinments}
+//                 </select>
+
+
+
+
+//                 <select className="browser-default custom-select pro" style={{display:`${gradeexamsdisplay}`}} onChange={handleGradeexams}>
+//                     <option value=''>CHOOSE EXAMS</option>
+//                     {optiongradeexams}
+//                 </select>
+
+//                 <select className="browser-default custom-select pro" style={{display:`${gradequizsdisplay}`}} onChange={handleGradequizs}>
+//                     <option value=''>CHOOSE  QUIZ NO</option>
+//                     {optiongradequizes}
+//                 </select>
+
+
+
+//             </div>
+//         )
+//     }
+// }
