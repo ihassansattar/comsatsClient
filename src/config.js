@@ -1,1 +1,1 @@
-export const apiPath="https://accreditation-services.herokuapp.com";
+export const apiPath="https://comsatsserver.herokuapp.com";
