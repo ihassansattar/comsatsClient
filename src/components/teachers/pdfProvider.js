@@ -42,7 +42,7 @@ let returnObj = { pdfFile: null, pdfNotMergedList: [] }
 							pdfDoc.addPage(pdfPage)
 						})
 					} catch (err) {
-						console.log(err)
+					
 						// console.log("File " + pdfFileList[i].name + " not merged due to the following error: " + err.message)
 						// pdfNotMergedList.push(pdfFileList[i].name)
 					}
@@ -53,7 +53,6 @@ let returnObj = { pdfFile: null, pdfNotMergedList: [] }
 				return returnObj
 			})
 			.catch((err) => {
-				console.log(err)
 				returnObj.pdfFile = null
 				returnObj.pdfNotMergedList = pdfNotMergedList
 				return returnObj
