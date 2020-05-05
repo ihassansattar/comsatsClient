@@ -209,8 +209,12 @@ export default function CourseUpload(props) {
                     });
                     console.log(allcourses.length)
                     if (allcourses.length === 0) {
-                        alert('no record found')
-                        window.location.reload();
+                        setTabledisplay('none') 
+                        setSearchloader('')
+                        alert.show('sorry no uploads ', {
+                            position: 'bottom right',
+                        })
+        
                     }
                     else {
                         setFinalfiles(downloadall)

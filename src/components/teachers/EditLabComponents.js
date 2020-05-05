@@ -197,8 +197,14 @@ setSearchloader('')
                     });
                    
                     if (allcourses.length===0) {
-                        alert('no record found')
-                        window.location.reload();
+                        setTabledisplay('none') 
+                        setSearchloader('')
+                        alert.show('sorry no uploads ', {
+                            position: 'bottom right',
+                        })
+        
+                        // alert('no record found')
+                        // window.location.reload();
                     }
                     else {
                         setFinalfiles(downloadall)
