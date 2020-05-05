@@ -86,6 +86,8 @@ export const useStyles = makeStyles(theme => ({
   //const [email, SetEmail] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [message, setMessage] = useState(true);
+  const [deadline, setDeadline] = useState(false);
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -178,13 +180,13 @@ export const useStyles = makeStyles(theme => ({
     switch (change) {
       case "Dashboard": return (<div className="card text-center" style={{ marginTop: '50px' }}>
         <div className="card-header" style={{ backgroundColor: "blue", color: "white" }}>
-          Comsats Accriditation Department TeacherS Dashboard
+          Comsats Accriditation Department Teachers Dashboard
       </div>
         <div className="card-body">
-          <p>all deadlines wil appear hear</p>
+    <p>{message}</p>
         </div>
         <div className="card-footer text-muted" style={{ backgroundColor: "pink", color: "white" }}>
-          Dead LINE:12/1/19
+          {deadline}
       </div>
       </div>);
 
@@ -218,6 +220,11 @@ export const useStyles = makeStyles(theme => ({
             },
             headers: { Authorization: `JWT ${accessString}` },
           });
+          await axios.get(apiPath+'/findsiteOptions/teacherDashboard').then(res=>{
+            console.log(res)
+            setDeadline(res.data.type)
+            setMessage(res.data.value)
+          })
           setFirst_Name(response.data.first_Name)
           setLast_Name(response.data.last_Name)
           // SetEmail(response.data.email)

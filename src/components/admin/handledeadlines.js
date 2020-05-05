@@ -5,7 +5,9 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import axios from 'axios';
 import { apiPath } from '../../config'
+import { useAlert } from 'react-alert'
 const Deadlines = () => {
+    const alert = useAlert()
     const [toggles, settoggles] = useState([]);
     const [allsubjects, setAllsubjects] = useState([]);
     const [coursecomponents, setCoursecomponents] = useState([]);
@@ -21,11 +23,17 @@ const Deadlines = () => {
     const [labComponents, setlabcomponents] = useState([])
     const [totalSharedRooms, settotalSharedRooms] = useState(true);
     const [nameHandler, setHandler] = useState('');
-    const [heading, setheading] = useState('')
+    const [heading, setheading] = useState('Select Any Option To handle Deadlines')
     const [onoffToggle, setOnOfToggle] = useState()
     const [loader, setloader] = useState(false)
+    const [message, setMessage] = useState('')
+    const [date, setdate] = useState('')
+    const[updateLoader,setUpdateLoader]=useState('')
     useEffect(() => {
-
+        axios.get(apiPath + '/findsiteOptions/teacherDashboard').then(res => {
+            setdate(res.data.type)
+            setMessage(res.data.value)
+        })
     }, [])
 
     function deadline(e, id) {
@@ -249,9 +257,29 @@ const Deadlines = () => {
         }
 
     }
-    async function fetchdata(e) {
+    async function update() {
+setUpdateLoader('updating...')
+        axios.put(apiPath + '/updatesiteOptions/teacherDashboard',
+            {
+                value: message,
+                type: date
+            }
+        ).then(res => {
+            setUpdateLoader('')
+            alert.success('succesfully updated')
+            
+        })
 
+
+    }
+    async function fetchdata(e) {
         setHandler(e.target.value)
+        if (e.target.value === 'dashboardMessage') {
+            setheading('Set The Teachers Dashboad Message And Deadline')
+        }
+        if (e.target.value === '') {
+            setheading('Select Any Option To handle Deadlines')
+        }
         if (e.target.value === 'findcoursecomponents') {
             setheading('Course Components Deadlines')
         }
@@ -323,6 +351,34 @@ const Deadlines = () => {
             </div>
         );
     }
+    else if(nameHandler ==='')
+    {
+      toggle=<div></div>
+       
+    }
+    else if (nameHandler === 'dashboardMessage') {
+
+        toggle =
+            <div>
+                <div class="form-row">
+                    <div class="name">Teachers Dashboard Message</div>
+                    <div class="value">
+                        <div class="input-group">
+                            <textarea class="textarea--style-6" name="message" placeholder="Provide Details" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="name">Deadline Date</div>
+                    <div class="value">
+                        <input class="input--style-6" type="text" name="full_name" placeholder="mm/dd/yyyy" value={date} onChange={(e) => setdate(e.target.value)} />
+                    </div>
+                </div>
+                <div class="card-footer">
+    <button class="btn btn-success btn-block" onClick={update}>{updateLoader?updateLoader:'Update'}</button>
+                </div>
+            </div>
+    }
     else {
         toggle = toggles.map((courses) =>
             <div class="form-row">
@@ -346,6 +402,7 @@ const Deadlines = () => {
                 <div class="card card-5">
                     <select className="browser-default custom-select pro" onChange={fetchdata}>
                         <option value=''>Handle Deadlines For</option>
+                        <option value='dashboardMessage'>DeshBoard Message</option>
                         <option value='findcoursecomponents'>Cours Components</option>
                         <option value='findlabcomponents'>LabComponents</option>
                         <option value='findselectassinments'>Assinments</option>
@@ -358,13 +415,12 @@ const Deadlines = () => {
                         <option value='findselectgrades'>Grades</option>
                     </select>
                     <div class="card-body">
-                        <form method="POST">
-                            
-                                {heading}
-                                
-                            
+                        <div>
+
+                            {heading}
+
                             {toggle}
-                        </form>
+                        </div>
                     </div>
 
                 </div>
