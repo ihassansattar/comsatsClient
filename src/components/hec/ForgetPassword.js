@@ -207,7 +207,7 @@ export default function ForgotPassword(){
           
           <Grid container>
             <Grid item xs>
-              <Link href="manage" variant="body2">
+              <Link href="hec" variant="body2">
                 Return to Login Page
               </Link>
             </Grid>

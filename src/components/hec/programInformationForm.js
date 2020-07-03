@@ -110,7 +110,7 @@ const BSPROGRAMDETAILS = () => {
                                 <div class="name">Admission eligibility policy</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Providing admission eligibility policy rearding program under evalution" value={admissionPolicy} onChange={(e) => setadmissionPolicy(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Providing admission eligibility policy rearding program under evalution" value={admissionPolicy} disabled ></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@ const BSPROGRAMDETAILS = () => {
                                 <div class="name">Admission Criteria</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Minimum 50% Marks and Mathematics in intermediate is required according to HEC" value={admissionCriteria} onChange={(e) => setadmissionCriteria(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Minimum 50% Marks and Mathematics in intermediate is required according to HEC" value={admissionCriteria} disabled onChange={(e) => setadmissionCriteria(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@ const BSPROGRAMDETAILS = () => {
                                 <div class="name">How for have the objective of the program been achieved</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please clear answer" value={programObjectivesAchived} onChange={(e) => setprogramObjectivesAchived(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please clear answer" value={programObjectivesAchived} disabled onChange={(e) => setprogramObjectivesAchived(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@ const BSPROGRAMDETAILS = () => {
                                 <div class="name">How Frequently is the program reviewed and revised</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="what is the process and procedure" value={programFrequentlyRevised} onChange={(e) => setprogramFrequentlyRevised(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="what is the process and procedure" value={programFrequentlyRevised} disabled onChange={(e) => setprogramFrequentlyRevised(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@ const BSPROGRAMDETAILS = () => {
                                 <div class="name">Please Provide the summary Of Problem Solving skills developed by the program</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="please write clear answer" value={problemSolvingSkillsDevelopedByProgram} onChange={(e) => setproblemSolvingSkillsDevelopedByProgram(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="please write clear answer" value={problemSolvingSkillsDevelopedByProgram} disabled onChange={(e) => setproblemSolvingSkillsDevelopedByProgram(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@ const BSPROGRAMDETAILS = () => {
                                 <div class="name">Please Provide a summary of the technologies exposed to students</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="please write clear answer" value={technologiesExposedToStudents} onChange={(e) => settechnologiesExposedToStudents(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="please write clear answer" value={technologiesExposedToStudents} disabled onChange={(e) => settechnologiesExposedToStudents(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@ const BSPROGRAMDETAILS = () => {
                                 <div class="name">Please list down the assisment standards of the institute</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="please provide clear answer" value={assismentStandardOfInstitute} onChange={(e) => setassismentStandardOfInstitute(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="please provide clear answer" value={assismentStandardOfInstitute} disabled onChange={(e) => setassismentStandardOfInstitute(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +166,7 @@ const BSPROGRAMDETAILS = () => {
                                 <div class="name">How far does the program correlate with existing industrial trends</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Give Details" value={existingIndusterialTrends} onChange={(e) => setexistingIndusterialTrends(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Give Details" value={existingIndusterialTrends} disabled onChange={(e) => setexistingIndusterialTrends(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@ const BSPROGRAMDETAILS = () => {
                                 <div class="name">Which emerging technologies do you train your students in</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write cleaar answer" value={studentsTrainedIn} onChange={(e) => setstudentsTrainedIn(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write cleaar answer" value={studentsTrainedIn} disabled onChange={(e) => setstudentsTrainedIn(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@ const BSPROGRAMDETAILS = () => {
                                 <div class="name">Program Goals</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={programGoals} onChange={(e) => setprogramGoals(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={programGoals} disabled onChange={(e) => setprogramGoals(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -191,19 +191,19 @@ const BSPROGRAMDETAILS = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of students</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents1} onChange={(e) => settotalStudents1(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents1} disabled onChange={(e) => settotalStudents1(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of sections</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalSections1} onChange={(e) => settotalSections1(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={totalSections1} disabled onChange={(e) => settotalSections1(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Number of students per section</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents1} onChange={(e) => setaverageStudents1(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents1} disabled onChange={(e) => setaverageStudents1(e.target.value)} />
                                 </div>
                             </div>
 
@@ -212,19 +212,19 @@ const BSPROGRAMDETAILS = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of students</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents2} onChange={(e) => settotalStudents2(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents2} disabled onChange={(e) => settotalStudents2(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of sections</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalSections2} onChange={(e) => settotalSections2(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={totalSections2} disabled onChange={(e) => settotalSections2(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Number of students per section</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents2} onChange={(e) => setaverageStudents2(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents2} disabled onChange={(e) => setaverageStudents2(e.target.value)} />
                                 </div>
                             </div>
 
@@ -233,19 +233,19 @@ const BSPROGRAMDETAILS = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of students</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents3} onChange={(e) => settotalStudents3(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents3} disabled onChange={(e) => settotalStudents3(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of sections</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalSections3} onChange={(e) => settotalSections3(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={totalSections3} disabled onChange={(e) => settotalSections3(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Number of students per section</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents3} onChange={(e) => setaverageStudents3(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents3} disabled onChange={(e) => setaverageStudents3(e.target.value)} />
                                 </div>
                             </div>
 
@@ -254,19 +254,19 @@ const BSPROGRAMDETAILS = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of students</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents4} onChange={(e) => settotalStudents4(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents4} disabled onChange={(e) => settotalStudents4(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of sections</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalSections4} onChange={(e) => settotalSections4(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={totalSections4} disabled onChange={(e) => settotalSections4(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Number of students per section</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents4} onChange={(e) => setaverageStudents4(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents4} disabled onChange={(e) => setaverageStudents4(e.target.value)} />
                                 </div>
                             </div>
 
@@ -275,26 +275,25 @@ const BSPROGRAMDETAILS = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of students</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents5} onChange={(e) => settotalStudents5(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents5} disabled onChange={(e) => settotalStudents5(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of sections</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalSections5} onChange={(e) => settotalSections5(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={totalSections5} disabled onChange={(e) => settotalSections5(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Number of students per section</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents5} onChange={(e) => setaverageStudents5(e.target.value)} />
+                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents5}disabled onChange={(e) => setaverageStudents5(e.target.value)} />
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-success btn-block" onClick={update}>Update</button>
-                        <button class="btn btn-danger btn-block" onClick={() => window.location.reload()}>Cancel</button>
+                        <button class="btn btn-success btn-block" onClick={() => window.location.reload()}>OK</button>
                     </div>
                 </div>
             </div>

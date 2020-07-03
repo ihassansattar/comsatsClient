@@ -226,7 +226,8 @@ export default function AdminProfile(props) {
       case "allSubjects": return <div><AllSubjects/></div>
       case "courseComponents" :return<CoureComponents/>
       case "labComponents" :return<LabComponents/>
-      default: return <h1>No project match</h1>
+      default: return <div><h1>Welcome To Comsats Accriditation Portal</h1><h5>Login for Comsats Admin</h5></div>
+    
     }
   }
 

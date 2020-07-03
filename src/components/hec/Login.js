@@ -108,7 +108,7 @@ if (!loggedIn) {
       <img src={ComsatsLogo} width='100' height="100" alt="loading"/>
       
         <Typography component="h1" variant="h5">
-        Admin  LogIn
+        HEC  LogIn
         </Typography>
         <form className={classes.form} onSubmit={loginUser}>
           <TextField
@@ -192,7 +192,7 @@ if (!loggedIn) {
           
           <Grid container>
             <Grid item xs>
-              <Link href="ForgetPasswordAdmin" variant="body2">
+              <Link href="ForgetPasswordHec" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
@@ -211,5 +211,5 @@ if (!loggedIn) {
     </Container></div>
   );
 }
-return  <Redirect to={`/adminProfile/${username}`} />;
+return  <Redirect to={`/hecProfile/${username}`} />;
 }

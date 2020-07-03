@@ -73,7 +73,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Number of seperate faculty offices</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={facultyOffices} onChange={(e) => setfacultyOffices(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={facultyOffices} disabled onChange={(e) => setfacultyOffices(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Is there any open area for students</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={openAreaForAStudents} onChange={(e) => setopenAreaForAStudents(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={openAreaForAStudents} disabled onChange={(e) => setopenAreaForAStudents(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Are there any facilities for outdoor and indoor sports</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={sports} onChange={(e) => setsports(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={sports} disabled onChange={(e) => setsports(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Is there In-Campus hostel facility provided by institute</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={hostelFacilit} onChange={(e) => sethostelFacilit(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={hostelFacilit} disabled onChange={(e) => sethostelFacilit(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Is there facility of adequate and clean praying area</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="please write clear answer" value={praying} onChange={(e) => setpraying(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="please write clear answer" value={praying} disabled onChange={(e) => setpraying(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Is there any adequate common room</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="please write clear answer" value={commonRoom} onChange={(e) => setcommonRoom(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="please write clear answer" value={commonRoom} disabled onChange={(e) => setcommonRoom(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Is there facility of Wi-Fi in campus</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={wifi} onChange={(e) => setwifi(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={wifi} disabled onChange={(e) => setwifi(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -129,7 +129,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Are there any socities in campus for extracurricular activities</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={socities} onChange={(e) => setsocities(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={socities} disabled onChange={(e) => setsocities(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Is there any yearly board of studies meeting</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write cleaar answer" value={yearlyBoard} onChange={(e) => setyearlyBoard(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write cleaar answer" value={yearlyBoard} disabled onChange={(e) => setyearlyBoard(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Are there any departmental meetings per semister</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={departMeeting} onChange={(e) => setdepartMeeting(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={departMeeting} disabled onChange={(e) => setdepartMeeting(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +154,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Does yearly calener exist and is followed</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={yearlyCalender} onChange={(e) => setyearlyCalender(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={yearlyCalender} disabled onChange={(e) => setyearlyCalender(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Is teaching assistant support provided to faculty</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={teachingAssitant} onChange={(e) => setteachingAssitant(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={teachingAssitant} disabled onChange={(e) => setteachingAssitant(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@ const GENERALINFORMAITION = () => {
                                 <div class="name">Is Placemint and internship office being established in campus</div>
                                 <div class="value">
                                     <div class="input-group">
-                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={internshipOffice} onChange={(e) => setinternshipOffice(e.target.value)}></textarea>
+                                        <textarea class="textarea--style-6" name="message" placeholder="Please write clear answer" value={internshipOffice} disabled onChange={(e) => setinternshipOffice(e.target.value)}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -180,8 +180,7 @@ const GENERALINFORMAITION = () => {
                         </form>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-success btn-block" onClick={Update}>Update</button>
-                        <button class="btn btn-danger btn-block" onClick={() => window.location.reload()}>Cancel</button>
+                        <button class="btn btn-success btn-block" onClick={() => window.location.reload()}>OK</button>
                     </div>
                 </div>
             </div>

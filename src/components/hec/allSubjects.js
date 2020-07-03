@@ -43,10 +43,7 @@ const DatatablePage = () => {
         label: 'Lab',
         field: 'lab',
       },
-      {
-        label: 'delete',
-        field: 'delete',
-      },
+      
      
     ],
    rows:[]
