@@ -120,7 +120,7 @@ export default function UpdatePassword (props) {
       
     try {
          const response = await axios.put(
-          apiPath + '/updateadminspasword',
+          apiPath + '/updatehecadminspasword',
           {
             username,
             password,

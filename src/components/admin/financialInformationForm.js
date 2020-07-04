@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './common.css'
 import axios from 'axios';
 import { apiPath } from '../../config';
+import { CSVLink } from "react-csv";
 const FINANCIALYEAR = () => {
-
     const [expenditureInstitution, setexpenditureInstitution] = useState('');
     const [expenditureRearch, setexpenditureRearch] = useState()
     const [expenditureComputingResearch, setexpenditureComputingResearch] = useState([]);
@@ -11,7 +11,6 @@ const FINANCIALYEAR = () => {
     const [expenditureBooks, setexpenditureBooks] = useState()
     const [expenditureFacilities, setexpenditureFacilities] = useState([]);
     const [expenditureComputingDepartment, setexpenditureComputingDepartment] = useState('');
-
     const [expenditureInstitution1, setexpenditureInstitution1] = useState('');
     const [expenditureRearch1, setexpenditureRearch1] = useState()
     const [expenditureComputingResearch1, setexpenditureComputingResearch1] = useState([]);
@@ -19,7 +18,6 @@ const FINANCIALYEAR = () => {
     const [expenditureBooks1, setexpenditureBooks1] = useState()
     const [expenditureFacilities1, setexpenditureFacilities1] = useState([]);
     const [expenditureComputingDepartment1, setexpenditureComputingDepartment1] = useState('');
-
     const [expenditureInstitution2, setexpenditureInstitution2] = useState('');
     const [expenditureRearch2, setexpenditureRearch2] = useState()
     const [expenditureComputingResearch2, setexpenditureComputingResearch2] = useState([]);
@@ -27,7 +25,6 @@ const FINANCIALYEAR = () => {
     const [expenditureBooks2, setexpenditureBooks2] = useState()
     const [expenditureFacilities2, setexpenditureFacilities2] = useState([]);
     const [expenditureComputingDepartment2, setexpenditureComputingDepartment2] = useState('');
-
     const [expenditureInstitution3, setexpenditureInstitution3] = useState('');
     const [expenditureRearch3, setexpenditureRearch3] = useState()
     const [expenditureComputingResearch3, setexpenditureComputingResearch3] = useState([]);
@@ -35,7 +32,6 @@ const FINANCIALYEAR = () => {
     const [expenditureBooks3, setexpenditureBooks3] = useState()
     const [expenditureFacilities3, setexpenditureFacilities3] = useState([]);
     const [expenditureComputingDepartment3, setexpenditureComputingDepartment3] = useState('');
-
     const [expenditureInstitution4, setexpenditureInstitution4] = useState('');
     const [expenditureRearch4, setexpenditureRearch4] = useState()
     const [expenditureComputingResearch4, setexpenditureComputingResearch4] = useState([]);
@@ -43,10 +39,12 @@ const FINANCIALYEAR = () => {
     const [expenditureBooks4, setexpenditureBooks4] = useState()
     const [expenditureFacilities4, setexpenditureFacilities4] = useState([]);
     const [expenditureComputingDepartment4, setexpenditureComputingDepartment4] = useState('');
+    const [exportsData, setExportsData] = useState([]);
 
     useEffect(() => {
         axios.get(apiPath + '/findfinancialinformation/1').then(res => {
             console.log(res.data)
+            setExportsData([res.data])
             setexpenditureInstitution(res.data.expenditureInstitution)
             setexpenditureRearch(res.data.expenditureRearch)
             setexpenditureComputingResearch(res.data.expenditureComputingResearch)
@@ -131,262 +129,274 @@ const FINANCIALYEAR = () => {
         <div class="page-wrapper p-t-100 p-b-50">
             <div class="wrapper wrapper--w900">
                 <div class="card card-6">
-                    <div class="card-heading" style={{ backgroundColor: "gray" }} >
-                        <h2 class="title">Financial Information Form</h2>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST">
+                    <div id='printMe'>
+                        <div class="card-heading" style={{ backgroundColor: "gray" }} >
+                            <h2 class="title">Financial Information Form</h2>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST">
 
-                            <h1 className="heading6-of-header fnt-poppins">Financial of Year {new Date().getFullYear()}</h1>
+                                <h1 className="heading6-of-header fnt-poppins">Financial of Year {new Date().getFullYear()}</h1>
 
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Institution</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureInstitution} onChange={(e) => setexpenditureInstitution(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Institution</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureInstitution} onChange={(e) => setexpenditureInstitution(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure for Research and Faculty Development</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureRearch} onChange={(e) => setexpenditureRearch(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure for Research and Faculty Development</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureRearch} onChange={(e) => setexpenditureRearch(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Computing Department's Research and Faculty Development</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureComputingResearch} onChange={(e) => setexpenditureComputingResearch(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Computing Department's Research and Faculty Development</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureComputingResearch} onChange={(e) => setexpenditureComputingResearch(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure for library</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" placeholder="In Millions" name="full_name" value={expenditureLibrary} onChange={(e) => setexpenditureLibrary(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure for library</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" placeholder="In Millions" name="full_name" value={expenditureLibrary} onChange={(e) => setexpenditureLibrary(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Annual Expenditure for Computing Books</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureBooks} onChange={(e) => setexpenditureBooks(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Annual Expenditure for Computing Books</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureBooks} onChange={(e) => setexpenditureBooks(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure for Computing Facilities</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureFacilities} onChange={(e) => setexpenditureFacilities(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure for Computing Facilities</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureFacilities} onChange={(e) => setexpenditureFacilities(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Computing Department</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" placeholder="In Millions" name="full_name" value={expenditureComputingDepartment} onChange={(e) => setexpenditureComputingDepartment(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Computing Department</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" placeholder="In Millions" name="full_name" value={expenditureComputingDepartment} onChange={(e) => setexpenditureComputingDepartment(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-
-
-
-                            <h1 className="heading6-of-header fnt-poppins">Financial of Year {new Date().getFullYear() - 1}</h1>
-
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Institution</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureInstitution1} onChange={(e) => setexpenditureInstitution1(e.target.value)} />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">=Anual Expenditure for Research and Faculty Development</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureRearch1} onChange={(e) => setexpenditureRearch1(e.target.value)} />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Computing Department's Research and Faculty Development</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureComputingResearch1} onChange={(e) => setexpenditureComputingResearch1(e.target.value)} />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure for library</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" placeholder="In Millions" name="full_name" value={expenditureLibrary1} onChange={(e) => setexpenditureLibrary1(e.target.value)} />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Annual Expenditure for Computing Books</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureBooks1} onChange={(e) => setexpenditureBooks1(e.target.value)} />
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure for Computing Facilities</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureFacilities1} onChange={(e) => setexpenditureFacilities1(e.target.value)} />
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Computing Department</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" placeholder="In Millions" name="full_name" value={expenditureComputingDepartment1} onChange={(e) => setexpenditureComputingDepartment1(e.target.value)} />
-                                </div>
-                            </div>
 
 
 
-                            <h1 className="heading6-of-header fnt-poppins">Financial of Year {new Date().getFullYear() - 2}</h1>
+                                <h1 className="heading6-of-header fnt-poppins">Financial of Year {new Date().getFullYear() - 1}</h1>
 
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Institution</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureInstitution2} onChange={(e) => setexpenditureInstitution2(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Institution</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureInstitution1} onChange={(e) => setexpenditureInstitution1(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">=Anual Expenditure for Research and Faculty Development</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureRearch2} onChange={(e) => setexpenditureRearch2(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">=Anual Expenditure for Research and Faculty Development</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureRearch1} onChange={(e) => setexpenditureRearch1(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Computing Department's Research and Faculty Development</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureComputingResearch2} onChange={(e) => setexpenditureComputingResearch2(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Computing Department's Research and Faculty Development</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureComputingResearch1} onChange={(e) => setexpenditureComputingResearch1(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure for library</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" placeholder="In Millions" name="full_name" value={expenditureLibrary2} onChange={(e) => setexpenditureLibrary2(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure for library</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" placeholder="In Millions" name="full_name" value={expenditureLibrary1} onChange={(e) => setexpenditureLibrary1(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Annual Expenditure for Computing Books</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureBooks2} onChange={(e) => setexpenditureBooks2(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Annual Expenditure for Computing Books</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureBooks1} onChange={(e) => setexpenditureBooks1(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure for Computing Facilities</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureFacilities2} onChange={(e) => setexpenditureFacilities2(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure for Computing Facilities</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureFacilities1} onChange={(e) => setexpenditureFacilities1(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Computing Department</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" placeholder="In Millions" name="full_name" value={expenditureComputingDepartment2} onChange={(e) => setexpenditureComputingDepartment2(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Computing Department</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" placeholder="In Millions" name="full_name" value={expenditureComputingDepartment1} onChange={(e) => setexpenditureComputingDepartment1(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-
-
-
-                            <h1 className="heading6-of-header fnt-poppins">Financial of Year {new Date().getFullYear() - 3}</h1>
-
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Institution</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureInstitution3} onChange={(e) => setexpenditureInstitution3(e.target.value)} />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">=Anual Expenditure for Research and Faculty Development</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureRearch3} onChange={(e) => setexpenditureRearch3(e.target.value)} />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Computing Department's Research and Faculty Development</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureComputingResearch3} onChange={(e) => setexpenditureComputingResearch3(e.target.value)} />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure for library</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" placeholder="In Millions" name="full_name" value={expenditureLibrary3} onChange={(e) => setexpenditureLibrary3(e.target.value)} />
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Annual Expenditure for Computing Books</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureBooks3} onChange={(e) => setexpenditureBooks3(e.target.value)} />
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure for Computing Facilities</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureFacilities3} onChange={(e) => setexpenditureFacilities3(e.target.value)} />
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Computing Department</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" placeholder="In Millions" name="full_name" value={expenditureComputingDepartment3} onChange={(e) => setexpenditureComputingDepartment3(e.target.value)} />
-                                </div>
-                            </div>
 
 
 
-                            <h1 className="heading6-of-header fnt-poppins">Financial of Year {new Date().getFullYear() - 4}</h1>
+                                <h1 className="heading6-of-header fnt-poppins">Financial of Year {new Date().getFullYear() - 2}</h1>
 
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Institution</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureInstitution4} onChange={(e) => setexpenditureInstitution4(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Institution</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureInstitution2} onChange={(e) => setexpenditureInstitution2(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">=Anual Expenditure for Research and Faculty Development</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureRearch4} onChange={(e) => setexpenditureRearch4(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">=Anual Expenditure for Research and Faculty Development</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureRearch2} onChange={(e) => setexpenditureRearch2(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Computing Department's Research and Faculty Development</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureComputingResearch4} onChange={(e) => setexpenditureComputingResearch4(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Computing Department's Research and Faculty Development</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureComputingResearch2} onChange={(e) => setexpenditureComputingResearch2(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure for library</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" placeholder="In Millions" name="full_name" value={expenditureLibrary4} onChange={(e) => setexpenditureLibrary4(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure for library</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" placeholder="In Millions" name="full_name" value={expenditureLibrary2} onChange={(e) => setexpenditureLibrary2(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="name">Annual Expenditure for Computing Books</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureBooks4} onChange={(e) => setexpenditureBooks4(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Annual Expenditure for Computing Books</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureBooks2} onChange={(e) => setexpenditureBooks2(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure for Computing Facilities</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Millions" value={expenditureFacilities4} onChange={(e) => setexpenditureFacilities4(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure for Computing Facilities</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureFacilities2} onChange={(e) => setexpenditureFacilities2(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-row">
-                                <div class="name">Anual Expenditure of Computing Department</div>
-                                <div class="value">
-                                    <input class="input--style-6" type="text" placeholder="In Millions" name="full_name" value={expenditureComputingDepartment4} onChange={(e) => setexpenditureComputingDepartment4(e.target.value)} />
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Computing Department</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" placeholder="In Millions" name="full_name" value={expenditureComputingDepartment2} onChange={(e) => setexpenditureComputingDepartment2(e.target.value)} />
+                                    </div>
                                 </div>
-                            </div>
-
-
 
 
-                        </form>
+
+                                <h1 className="heading6-of-header fnt-poppins">Financial of Year {new Date().getFullYear() - 3}</h1>
+
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Institution</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureInstitution3} onChange={(e) => setexpenditureInstitution3(e.target.value)} />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="name">=Anual Expenditure for Research and Faculty Development</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureRearch3} onChange={(e) => setexpenditureRearch3(e.target.value)} />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Computing Department's Research and Faculty Development</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureComputingResearch3} onChange={(e) => setexpenditureComputingResearch3(e.target.value)} />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure for library</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" placeholder="In Millions" name="full_name" value={expenditureLibrary3} onChange={(e) => setexpenditureLibrary3(e.target.value)} />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="name">Annual Expenditure for Computing Books</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureBooks3} onChange={(e) => setexpenditureBooks3(e.target.value)} />
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure for Computing Facilities</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureFacilities3} onChange={(e) => setexpenditureFacilities3(e.target.value)} />
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Computing Department</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" placeholder="In Millions" name="full_name" value={expenditureComputingDepartment3} onChange={(e) => setexpenditureComputingDepartment3(e.target.value)} />
+                                    </div>
+                                </div>
+
+
+
+                                <h1 className="heading6-of-header fnt-poppins">Financial of Year {new Date().getFullYear() - 4}</h1>
+
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Institution</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureInstitution4} onChange={(e) => setexpenditureInstitution4(e.target.value)} />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="name">=Anual Expenditure for Research and Faculty Development</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureRearch4} onChange={(e) => setexpenditureRearch4(e.target.value)} />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Computing Department's Research and Faculty Development</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureComputingResearch4} onChange={(e) => setexpenditureComputingResearch4(e.target.value)} />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure for library</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" placeholder="In Millions" name="full_name" value={expenditureLibrary4} onChange={(e) => setexpenditureLibrary4(e.target.value)} />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="name">Annual Expenditure for Computing Books</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureBooks4} onChange={(e) => setexpenditureBooks4(e.target.value)} />
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure for Computing Facilities</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" name="full_name" placeholder="In Millions" value={expenditureFacilities4} onChange={(e) => setexpenditureFacilities4(e.target.value)} />
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="name">Anual Expenditure of Computing Department</div>
+                                    <div class="value">
+                                        <input class="input--style-6" type="number" placeholder="In Millions" name="full_name" value={expenditureComputingDepartment4} onChange={(e) => setexpenditureComputingDepartment4(e.target.value)} />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-success btn-block" onClick={update}>Update</button>
+                        {exportsData && <button class="btn btn-success btn-block" style={{ color: 'white' }}><CSVLink style={{ color: 'white' }} data={exportsData && exportsData} target="_blank"
+                            filename={"financialInformationForm.csv"}>Export</CSVLink></button>}
+
+                        <button class="btn btn-success btn-block" onClick={() => {
+                            var printContents = document.getElementById('printMe').innerHTML;
+                            var originalContents = document.body.innerHTML;
+
+                            document.body.innerHTML = printContents;
+
+                            window.print();
+
+                            document.body.innerHTML = originalContents;
+                            window.location.reload()
+                        }}>Print</button>
                         <button class="btn btn-danger btn-block" onClick={() => window.location.reload()}>Cancel</button>
                     </div>
                 </div>

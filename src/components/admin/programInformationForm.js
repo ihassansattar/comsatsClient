@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './common.css'
 import axios from 'axios';
 import { apiPath } from '../../config';
+import { CSVLink } from "react-csv";
 const BSPROGRAMDETAILS = () => {
     const [admissionPolicy, setadmissionPolicy] = useState()
     const [admissionCriteria, setadmissionCriteria] = useState([]);
@@ -13,28 +14,25 @@ const BSPROGRAMDETAILS = () => {
     const [existingIndusterialTrends, setexistingIndusterialTrends] = useState([]);
     const [studentsTrainedIn, setstudentsTrainedIn] = useState('');
     const [programGoals, setprogramGoals] = useState('');
-
     const [totalStudents1, settotalStudents1] = useState('');
     const [totalSections1, settotalSections1] = useState()
     const [averageStudents1, setaverageStudents1] = useState([]);
-
     const [totalStudents2, settotalStudents2] = useState('');
     const [totalSections2, settotalSections2] = useState()
     const [averageStudents2, setaverageStudents2] = useState([]);
-
     const [totalStudents3, settotalStudents3] = useState('');
     const [totalSections3, settotalSections3] = useState()
     const [averageStudents3, setaverageStudents3] = useState([]);
-
     const [totalStudents4, settotalStudents4] = useState('');
     const [totalSections4, settotalSections4] = useState()
     const [averageStudents4, setaverageStudents4] = useState([]);
-
     const [totalStudents5, settotalStudents5] = useState('');
     const [totalSections5, settotalSections5] = useState()
     const [averageStudents5, setaverageStudents5] = useState([]);
+    const [exportsData, setExportsData] = useState([]);
     useEffect(() => {
         axios.get(apiPath + '/findprogramminformation/1').then(res => {
+            setExportsData([res.data])
             setadmissionPolicy(res.data.admissionPolicy)
             setadmissionCriteria(res.data.admissionCriteria)
             setprogramObjectivesAchived(res.data.programObjectivesAchived)
@@ -65,41 +63,42 @@ const BSPROGRAMDETAILS = () => {
     async function update() {
         await axios.put(apiPath + '/updateprogramminformation/1', {
             admissionPolicy,
-                admissionCriteria,
-                programObjectivesAchived,
-                programFrequentlyRevised,
-                problemSolvingSkillsDevelopedByProgram,
-                technologiesExposedToStudents,
-                assismentStandardOfInstitute,
-                existingIndusterialTrends,
-                studentsTrainedIn,
-                programGoals,
-                totalStudents1,
-                totalSections1,
-                averageStudents1,
-                totalStudents2,
-                totalSections2,
-                averageStudents2,
-                totalStudents3,
-                totalSections3,
-                averageStudents3,
-                totalStudents4,
-                totalSections4,
-                averageStudents4,
-                totalStudents5,
-                totalSections5,
-                averageStudents5,
+            admissionCriteria,
+            programObjectivesAchived,
+            programFrequentlyRevised,
+            problemSolvingSkillsDevelopedByProgram,
+            technologiesExposedToStudents,
+            assismentStandardOfInstitute,
+            existingIndusterialTrends,
+            studentsTrainedIn,
+            programGoals,
+            totalStudents1,
+            totalSections1,
+            averageStudents1,
+            totalStudents2,
+            totalSections2,
+            averageStudents2,
+            totalStudents3,
+            totalSections3,
+            averageStudents3,
+            totalStudents4,
+            totalSections4,
+            averageStudents4,
+            totalStudents5,
+            totalSections5,
+            averageStudents5,
         }).then(res => {
             console.log(res)
             alert("successfully Updated")
             window.location.reload()
-  
+
         })
     }
     return (
         <div class="page-wrapper p-t-100 p-b-50">
             <div class="wrapper wrapper--w900">
                 <div class="card card-6">
+                <div id='printMe'>
                     <div class="card-heading" style={{ backgroundColor: "gray" }}>
                         <h2 class="title">Program Information Form</h2>
                     </div>
@@ -191,19 +190,19 @@ const BSPROGRAMDETAILS = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of students</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents1} onChange={(e) => settotalStudents1(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={totalStudents1} onChange={(e) => settotalStudents1(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of sections</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalSections1} onChange={(e) => settotalSections1(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={totalSections1} onChange={(e) => settotalSections1(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Number of students per section</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents1} onChange={(e) => setaverageStudents1(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={averageStudents1} onChange={(e) => setaverageStudents1(e.target.value)} />
                                 </div>
                             </div>
 
@@ -212,19 +211,19 @@ const BSPROGRAMDETAILS = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of students</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents2} onChange={(e) => settotalStudents2(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={totalStudents2} onChange={(e) => settotalStudents2(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of sections</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalSections2} onChange={(e) => settotalSections2(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={totalSections2} onChange={(e) => settotalSections2(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Number of students per section</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents2} onChange={(e) => setaverageStudents2(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={averageStudents2} onChange={(e) => setaverageStudents2(e.target.value)} />
                                 </div>
                             </div>
 
@@ -233,19 +232,19 @@ const BSPROGRAMDETAILS = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of students</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents3} onChange={(e) => settotalStudents3(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={totalStudents3} onChange={(e) => settotalStudents3(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of sections</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalSections3} onChange={(e) => settotalSections3(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={totalSections3} onChange={(e) => settotalSections3(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Number of students per section</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents3} onChange={(e) => setaverageStudents3(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={averageStudents3} onChange={(e) => setaverageStudents3(e.target.value)} />
                                 </div>
                             </div>
 
@@ -254,19 +253,19 @@ const BSPROGRAMDETAILS = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of students</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents4} onChange={(e) => settotalStudents4(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={totalStudents4} onChange={(e) => settotalStudents4(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of sections</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalSections4} onChange={(e) => settotalSections4(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={totalSections4} onChange={(e) => settotalSections4(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Number of students per section</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents4} onChange={(e) => setaverageStudents4(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={averageStudents4} onChange={(e) => setaverageStudents4(e.target.value)} />
                                 </div>
                             </div>
 
@@ -275,25 +274,36 @@ const BSPROGRAMDETAILS = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of students</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalStudents5} onChange={(e) => settotalStudents5(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={totalStudents5} onChange={(e) => settotalStudents5(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of sections</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={totalSections5} onChange={(e) => settotalSections5(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={totalSections5} onChange={(e) => settotalSections5(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Number of students per section</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" value={averageStudents5} onChange={(e) => setaverageStudents5(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" value={averageStudents5} onChange={(e) => setaverageStudents5(e.target.value)} />
                                 </div>
                             </div>
                         </form>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-success btn-block" onClick={update}>Update</button>
+                        {exportsData && <button class="btn btn-success btn-block" style={{ color: 'white' }}><CSVLink style={{ color: 'white' }} data={exportsData && exportsData} target="_blank"
+                            filename={"generalInformationForm.csv"}>Export</CSVLink></button>}
+                        <button class="btn btn-success btn-block" onClick={() => {
+                            var printContents = document.getElementById('printMe').innerHTML;
+                            var originalContents = document.body.innerHTML;
+                            document.body.innerHTML = printContents;
+                            window.print();
+                            document.body.innerHTML = originalContents;
+                            window.location.reload()
+                        }}>Print</button>
                         <button class="btn btn-danger btn-block" onClick={() => window.location.reload()}>Cancel</button>
                     </div>
                 </div>

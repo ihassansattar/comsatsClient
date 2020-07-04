@@ -133,7 +133,7 @@ export default function UpdateProfile(props) {
     e.preventDefault();
     try {
       await axios.put(
-        apiPath + '/updateadmins',
+        apiPath + '/updatehecadmins',
         {
           first_Name,
           last_Name,
@@ -175,13 +175,13 @@ export default function UpdateProfile(props) {
   if (loadingUser !== false) {
     return (
       <div>
-<div>
-                <div class="text-center">
-  <div className="spinner-border" role="status">
-    <span className="sr-only">Loading...</span>
-  </div>
-</div>
+        <div>
+          <div class="text-center">
+            <div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
             </div>
+          </div>
+        </div>
       </div>
     );
   }

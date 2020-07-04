@@ -24,7 +24,9 @@ export default function CourseUpload(props) {
     const [compare, setCompare] = useState()
     const [tablediplay, setTabledisplay] = useState('none')
     const [searchloader, setSearchloader] = useState(null)
-
+    const [searchBackup, setSearchBackup] = useState(null)
+    const [users, setusers] = useState([])
+    const [filesChecker,setFilesChecker]=useState(false)
     const data = {
         columns: [
             {
@@ -57,6 +59,10 @@ export default function CourseUpload(props) {
         async function loadsubjects() {
 
             {
+                await axios.get(apiPath + '/findallteachers').then(users=>{
+                    console.log(users)
+                    setusers(users.data)
+                 })
                 const subjects = await axios.get(apiPath + '/labsubjects')
                 const coursecomponent = await axios.get(apiPath + '/findlabcomponents')
                 axios.all([subjects, coursecomponent]).then(axios.spread((...responses) => {
@@ -75,6 +81,8 @@ export default function CourseUpload(props) {
         setSearchloader('searching...')
         axios.get(apiPath + `/findlabfilesbysubject/${subject}`).then(response => {
             setInitialFiles(response.data)
+            setSearchBackup(response.data)
+            setFilesChecker(true)
             let allcourses = []
             let downloadall = []
             let allfiles = []
@@ -119,6 +127,14 @@ export default function CourseUpload(props) {
             setSubject(e.target.value)
         }
 
+    }
+    function filterByTeacher(e){
+        if (e.target.value) {
+            console.log(e.target.value)
+            setInitialFiles(searchBackup.filter(sin=>sin.username===e.target.value))
+        }else{
+            setInitialFiles([...searchBackup])
+        }
     }
     function startmerge() {
         let tempMsg
@@ -181,6 +197,9 @@ export default function CourseUpload(props) {
     let optionsubjects = allsubjects.map((allcourses) =>
         <option disabled={allcourses.Department} value={allcourses.Name} style={{ color: "BLACK" }} >{allcourses.Name}</option>
     );
+    let user = users.map((Users) =>
+    <option  value={Users.name} >{Users.username}</option>
+);
     let files = initialfiles.map((allcourses) => {
         data.rows.push(
             {
@@ -204,6 +223,10 @@ export default function CourseUpload(props) {
                     </select>
                     <button className="input-group-text  btn-dark" disabled={!subject || searchloader} id="inputGroupFileAddon01" onClick={searchFiles}>{searchloader ? searchloader : 'search'}</button>
                 </div >
+                {filesChecker&&<select className="browser-default custom-select" style={{color:'black'}} onChange={filterByTeacher}>
+                        <option value=''>CHOOSE TEACHER</option>
+                        {user}
+                    </select>}
                 <Container component="main" maxWidth="s" className="card">
                     <div className="table-hover" style=
                         {{ display: `${tablediplay}` }}>

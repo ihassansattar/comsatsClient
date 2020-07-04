@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './common.css'
 import axios from 'axios';
 import { apiPath } from '../../config';
+import { CSVLink } from "react-csv";
 const GENERALINFORMAITION = () => {
     const [totalDedicatedRooms, settotalDedicatedRooms] = useState()
     const [totalSharedRooms, settotalSharedRooms] = useState([]);
@@ -13,31 +14,27 @@ const GENERALINFORMAITION = () => {
     const [pcLifeTime, setpcLifeTime] = useState([]);
     const [totalLabHours, settotalLabHours] = useState('');
     const [networking, setnetworking] = useState('');
-
     const [specialFacilities, setspecialFacilities] = useState('');
     const [isLogicDesign, setisLogicDesign] = useState()
     const [exclusiveFinalYearLab, setexclusiveFinalYearLab] = useState([]);
-
     const [studentToComputerRatio1, setstudentToComputerRatio1] = useState([]);
     const [studentToComputerRatio2, setstudentToComputerRatio2] = useState([]);
     const [studentToComputerRatio3, setstudentToComputerRatio3] = useState([]);
-
     const [totalLibraryBooks, settotalLibraryBooks] = useState([]);
     const [uniqueTitle, setuniqueTitle] = useState([]);
     const [hecDigitalLibrary, sethecDigitalLibrary] = useState([]);
     const [libraryManagementSystem, setlibraryManagementSystem] = useState([]);
     const [ieee, setieee] = useState([]);
-
     const [booksAdded1, setbooksAdded1] = useState([]);
     const [printedMagzines1, setprintedMagzines1] = useState([]);
-
     const [booksAdded2, setbooksAdded2] = useState([]);
     const [printedMagzines2, setprintedMagzines2] = useState([]);
-
     const [booksAdded3, setbooksAdded3] = useState([]);
     const [printedMagzines3, setprintedMagzines3] = useState([]);
+    const [exportsData, setExportsData] = useState([]);
     useEffect(() => {
         axios.get(apiPath + '/findinfrastructureinforfation/1').then(res => {
+            setExportsData([res.data])
             settotalDedicatedRooms(res.data.totalDedicatedRooms)
             settotalSharedRooms(res.data.totalSharedRooms)
             setroomsize(res.data.roomsize)
@@ -107,6 +104,7 @@ const GENERALINFORMAITION = () => {
         <div class="page-wrapper p-t-100 p-b-50">
             <div class="wrapper wrapper--w900">
                 <div class="card card-6">
+                <div id='printMe'>
                     <div class="card-heading" style={{ backgroundColor: "gray" }}>
                         <h2 class="title">Infrastructure Information Form</h2>
                     </div>
@@ -116,19 +114,19 @@ const GENERALINFORMAITION = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of Dedicated Lecture Rooms</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="For the Program Under Evaluation" value={totalDedicatedRooms} disabled onChange={(e) => settotalDedicatedRooms(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="For the Program Under Evaluation" value={totalDedicatedRooms} disabled onChange={(e) => settotalDedicatedRooms(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of Shared Lecture Rooms</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="For the Program Under Evaluation" value={totalSharedRooms} disabled onChange={(e) => settotalSharedRooms(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="For the Program Under Evaluation" value={totalSharedRooms} disabled onChange={(e) => settotalSharedRooms(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average size of each lecture room</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="In Square Feet" value={roomsize} disabled onChange={(e) => setroomsize(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="In Square Feet" value={roomsize} disabled onChange={(e) => setroomsize(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -152,26 +150,26 @@ const GENERALINFORMAITION = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of Computing Labs</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="For the Program Under Evaluation" value={totalComputerLabs} disabled  onChange={(e) => settotalComputerLabs(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="For the Program Under Evaluation" value={totalComputerLabs} disabled onChange={(e) => settotalComputerLabs(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Number Of Computers per Lab</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="For the Program Under Evaluation" value={averageComputerLabs} disabled onChange={(e) => setaverageComputerLabs(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="For the Program Under Evaluation" value={averageComputerLabs} disabled onChange={(e) => setaverageComputerLabs(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Average Lifetime of PC in computer labs</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="No of Years" value={pcLifeTime} disabled onChange={(e) => setpcLifeTime(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="No of Years" value={pcLifeTime} disabled onChange={(e) => setpcLifeTime(e.target.value)} />
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="name">Total Number of Lab hours per week</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="please write clear answer" value={totalLabHours} disabled onChange={(e) => settotalLabHours(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="please write clear answer" value={totalLabHours} disabled onChange={(e) => settotalLabHours(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -206,7 +204,7 @@ const GENERALINFORMAITION = () => {
                             <div class="form-row">
                                 <div class="name">Students to Computer Ratio</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="please write clear answer" value={studentToComputerRatio1} disabled onChange={(e) => setstudentToComputerRatio1(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="please write clear answer" value={studentToComputerRatio1} disabled onChange={(e) => setstudentToComputerRatio1(e.target.value)} />
                                 </div>
                             </div>
 
@@ -214,7 +212,7 @@ const GENERALINFORMAITION = () => {
                             <div class="form-row">
                                 <div class="name">Students to Computer Ratio</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="please write clear answer" value={studentToComputerRatio2} disabled onChange={(e) => setstudentToComputerRatio2(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="please write clear answer" value={studentToComputerRatio2} disabled onChange={(e) => setstudentToComputerRatio2(e.target.value)} />
                                 </div>
                             </div>
 
@@ -222,7 +220,7 @@ const GENERALINFORMAITION = () => {
                             <div class="form-row">
                                 <div class="name">Students to Computer Ratio</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="please write clear answer" value={studentToComputerRatio3}disabled onChange={(e) => setstudentToComputerRatio3(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="please write clear answer" value={studentToComputerRatio3} disabled onChange={(e) => setstudentToComputerRatio3(e.target.value)} />
                                 </div>
                             </div>
 
@@ -231,13 +229,13 @@ const GENERALINFORMAITION = () => {
                             <div class="form-row">
                                 <div class="name">Total Number of books in Library</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="please write clear answer" value={totalLibraryBooks} disabled onChange={(e) => settotalLibraryBooks(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="please write clear answer" value={totalLibraryBooks} disabled onChange={(e) => settotalLibraryBooks(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="name">Total Number of Unique titles in Library</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="please write clear answer" value={uniqueTitle} disabled onChange={(e) => setuniqueTitle(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="please write clear answer" value={uniqueTitle} disabled onChange={(e) => setuniqueTitle(e.target.value)} />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -269,7 +267,7 @@ const GENERALINFORMAITION = () => {
                             <div class="form-row">
                                 <div class="name">Number of printed technical magazines</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="please write clear answer" value={printedMagzines1} disabled onChange={(e) => setprintedMagzines1(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="please write clear answer" value={printedMagzines1} disabled onChange={(e) => setprintedMagzines1(e.target.value)} />
                                 </div>
                             </div>
 
@@ -283,7 +281,7 @@ const GENERALINFORMAITION = () => {
                             <div class="form-row">
                                 <div class="name">Number of printed technical magazines</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="please write clear answer" value={printedMagzines2} disabled onChange={(e) => setprintedMagzines2(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="please write clear answer" value={printedMagzines2} disabled onChange={(e) => setprintedMagzines2(e.target.value)} />
                                 </div>
                             </div>
 
@@ -297,13 +295,24 @@ const GENERALINFORMAITION = () => {
                             <div class="form-row">
                                 <div class="name">Number of printed technical magazines</div>
                                 <div class="value">
-                                    <input class="input--style-6" type="text" name="full_name" placeholder="please write clear answer" value={printedMagzines3} disabled onChange={(e) => setprintedMagzines3(e.target.value)} />
+                                    <input class="input--style-6" type="number" name="full_name" placeholder="please write clear answer" value={printedMagzines3} disabled onChange={(e) => setprintedMagzines3(e.target.value)} />
                                 </div>
                             </div>
                         </form>
+                        </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-success btn-block" onClick={() => window.location.reload()}>Ok</button>
+                        {exportsData && <button class="btn btn-success btn-block" style={{ color: 'white' }}><CSVLink style={{ color: 'white' }} data={exportsData && exportsData} target="_blank"
+                            filename={"infrastructureInformationForm.csv"}>Export</CSVLink></button>}
+                        <button class="btn btn-success btn-block" onClick={() => {
+                            var printContents = document.getElementById('printMe').innerHTML;
+                            var originalContents = document.body.innerHTML;
+                            document.body.innerHTML = printContents;
+                            window.print();
+                            document.body.innerHTML = originalContents;
+                            window.location.reload()
+                        }}>Print</button>
+                        <button class="btn btn-danger btn-block" onClick={() => window.location.reload()}>Cancel</button>
                     </div>
                 </div>
             </div>

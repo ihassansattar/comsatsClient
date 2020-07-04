@@ -35,7 +35,7 @@ const DatatablePage = () => {
   const data = {
     columns: [
       {
-        label: 'UserName',
+        label: 'Name',
         field: 'name',
         sort: 'asc',
       },

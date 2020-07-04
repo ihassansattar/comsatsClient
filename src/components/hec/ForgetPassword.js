@@ -67,7 +67,7 @@ export default function ForgotPassword(){
         setButton('')
       try {
         const response = await axios.post(
-          apiPath + '/forgotPasswordadmins',
+          apiPath + '/forgotPasswordhecadmins',
           {
             email,
           },

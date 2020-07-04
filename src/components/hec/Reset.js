@@ -50,7 +50,7 @@ export default function ResetPassword (props) {
         async function fetchData() {
            
     try {
-      const response = await axios.get(apiPath + '/resetadmins', {
+      const response = await axios.get(apiPath + '/resethecadmins', {
         params: {
           resetPasswordToken: props.match.params.token,
         },
