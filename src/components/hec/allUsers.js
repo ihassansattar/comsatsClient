@@ -43,6 +43,10 @@ const DatatablePage = () => {
         label: 'Email',
         field: 'email',
       },
+      {
+        label: 'Designation',
+        field: 'designation',
+      },
      
      
     ],
@@ -53,6 +57,7 @@ const DatatablePage = () => {
     {
       name:users.username,
       email:users.email,
+      designation:users.profile_pic,
       delete:<DeleteForeverIcon  color="secondary" className="btn-change" onClick={(event) => deleteUsers(users.id)}/>
   
 

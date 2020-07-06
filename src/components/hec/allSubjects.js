@@ -40,6 +40,10 @@ const DatatablePage = () => {
         sort: 'asc',
       },
       {
+        label: 'Credit Hours',
+        field: 'creditHours',
+      },
+      {
         label: 'Lab',
         field: 'lab',
       },
@@ -53,6 +57,7 @@ const DatatablePage = () => {
     {
       name:users.Name,
       lab:users.Lab,
+      creditHours:users.crdHrs, 
       delete:<DeleteForeverIcon color="secondary" className="btn-change" onClick={(event) => deleteUsers(users.id)}/>
   
 

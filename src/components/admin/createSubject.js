@@ -45,6 +45,7 @@ export default function SignUp() {
     const [sucess, setsucces] = useState('')
     const [error, seterror] = useState('')
     const [creating, setcreateing] = useState('')
+    const [credathrs,setcredathrs]=useState('')
     function create() {
         setcreateing("creating...")
         setsucces('')
@@ -53,13 +54,13 @@ if(lab && subject){
         axios.post(apiPath + '/createsubjects', {
             Name: subject,
             Lab: lab,
-
+            crdHrs:credathrs
         }).then(res => {
             console.log(res)
             seterror('')
             setcreateing('')
             setsubject('')
-            setsucces("succesfully Registered")
+            setsucces(res.data)
         }).catch(err => {
             setsucces('')
             setcreateing('')
@@ -94,6 +95,16 @@ if(lab && subject){
                 id="Name"
                 value={subject}
                 onChange={(e)=>setsubject(e.target.value)}
+                
+              />
+               <TextField
+                variant="outlined"
+                fullWidth
+                name="Credit Hours"
+                label="Credit Hours"
+                type="number"
+                id="credithrs"
+                onChange={(e)=>setcredathrs(e.target.value)}
                 
               />
      
