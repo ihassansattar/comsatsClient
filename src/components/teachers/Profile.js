@@ -17,7 +17,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import Logout from '@material-ui/icons/Https';
 import Password from '@material-ui/icons/VpnKey';
-
 import { Redirect } from 'react-router-dom';
 import BuildSharpIcon from '@material-ui/icons/SettingsSharp';
 import CloudUploadSharpIcon from '@material-ui/icons/CloudUploadSharp';
@@ -34,7 +33,34 @@ import LabUpload from './LabUpload'
 import EditCourseComponent from './EditCourseComponents'
 import EditLabComponent from './EditLabComponents'
 import '../../App.css';
+import PropTypes from 'prop-types';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Box from '@material-ui/core/Box';
+
+
 const drawerWidth = 250;
+function CircularProgressWithLabel(props) {
+  return (
+    <Box position="relative" display="inline-flex">
+      <CircularProgress variant="static" {...props} />
+      <Box
+        top={0}
+        left={0}
+        bottom={0}
+        right={0}
+        position="absolute"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Typography variant="caption" component="div" color="textSecondary">{`${Math.round(
+          props.value,
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
+
 
 
 export const useStyles = makeStyles(theme => ({
@@ -76,10 +102,11 @@ export const useStyles = makeStyles(theme => ({
   }
 }));
 
- const Profile=(props)=> {
+const Profile = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [change, setChange] = useState('Dashboard')
   const [username, setUsername] = useState('');
+  const [progress, setProgress] = React.useState(50);
   // const [password, setPassword] = useState('');
   const [first_Name, setFirst_Name] = useState('');
   const [last_Name, setLast_Name] = useState('');
@@ -88,10 +115,15 @@ export const useStyles = makeStyles(theme => ({
   const [error, setError] = useState(false);
   const [message, setMessage] = useState(true);
   const [deadline, setDeadline] = useState(false);
+  const [allSubjects, setAllSubjects] = useState([]);
+  const [labSubjects, setLabSubjects] = useState([]);
+  const [coursComponents, setCoursComponents] = useState([]);
+  const [labComponents, setLabComponents] = useState([]);
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [caseSwitcher, setCaseSwitcher] = useState('')
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -101,11 +133,12 @@ export const useStyles = makeStyles(theme => ({
     setSelectedIndex(index);
   };
 
-  function logout  (e) {
+  function logout(e) {
     e.preventDefault();
     localStorage.removeItem('JWT');
     props.history.push("/login")
   };
+
   const drawer = (
     <div style={{ backgroundImage: "linear-gradient(to bottom, #062046, #132c4e, #203855, #2f455c, #3e5162)" }}>
       <div className={classes.toolbar} />
@@ -172,23 +205,63 @@ export const useStyles = makeStyles(theme => ({
 
 
 
+  const normalise = value => (value - 0) * 100 / (20 - 0);
 
+  useEffect(() => {
+    initialData()
+  }, [change])
+  const initialData = async () => {
 
+    await axios.get(apiPath + `/graphOfCourses/${props.match.params.username}`).then(courseCom => {
+      setCoursComponents(courseCom.data)
+      console.log(courseCom.data)
+    })
+    await axios.get(apiPath + `/graphOfLabs/${props.match.params.username}`).then(labCom => {
+      setLabComponents(labCom.data)
+      console.log(labCom.data)
+    })
+  }
 
-
-  function Navigation () {
+  function Navigation() {
+    
     switch (change) {
-      case "Dashboard": return (<div className="card text-center" style={{ marginTop: '50px' }}>
+      case "Dashboard": {
+        
+        return (<div><div className="card text-center" style={{ marginTop: '50px' }}>
         <div className="card-header" style={{ backgroundColor: "blue", color: "white" }}>
           Comsats Accriditation Department Teachers Dashboard
       </div>
         <div className="card-body">
-    <p>{message}</p>
+          <p>{message}</p>
         </div>
         <div className="card-footer text-muted" style={{ backgroundColor: "pink", color: "white" }}>
           {deadline}
+        </div>
+
       </div>
-      </div>);
+        {coursComponents && coursComponents.length !== 0 && <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <h1>Course Components</h1>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
+            {coursComponents.map(sin => <div style={{ margin:"6px", display: "flex", alignItems: "center", justifyContent: "space-between", width: "55%" }}>
+              <h3>{sin.subjectName}</h3>
+              <CircularProgressWithLabel value={normalise(sin.count)} />
+            </div>)}
+          </div>
+        </div>}
+        {labComponents && labComponents.length !== 0 && <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <h1>Lab Components</h1>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
+            {labComponents.map(sin => <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "55%" }}>
+              <h3>{sin.subjectName}</h3>
+              <CircularProgressWithLabel value={normalise(sin.count)} />
+            </div>)}
+          </div>
+        </div>}
+      </div >)};
 
 
       case "UploadCourse": return <CourseUpload username={username} />;
@@ -220,7 +293,8 @@ export const useStyles = makeStyles(theme => ({
             },
             headers: { Authorization: `JWT ${accessString}` },
           });
-          await axios.get(apiPath+'/findsiteOptions/teacherDashboard').then(res=>{
+          initialData()
+          await axios.get(apiPath + '/findsiteOptions/teacherDashboard').then(res => {
             console.log(res)
             setDeadline(res.data.type)
             setMessage(res.data.value)
@@ -234,7 +308,7 @@ export const useStyles = makeStyles(theme => ({
           setError(false)
         }
         catch (error) {
-          
+
           setError(true)
         }
 

@@ -56,6 +56,14 @@ const CourseUpload = (props) => {
                     },
                     headers: { Authorization: `JWT ${accessString}` },
                 });
+                await axios.post(apiPath + '/getassignSubjects', {
+                    username: props.username
+                }).then(sub => {
+                    console.log("username", props.username)
+                    console.log("sub", sub.data)
+                    setAllsubjects(sub.data)
+
+                })
                 const subjects = await axios.get(apiPath + '/findsubjects')
                 const coursecomponent = await axios.get(apiPath + '/findcoursecomponents')
                 const gradeexam = await axios.get(apiPath + '/findgradeexams')
@@ -72,7 +80,7 @@ const CourseUpload = (props) => {
 
                 axios.all([user, subjects, coursecomponent, gradeexam, gradeassinment, selectquiz, selectexam, selectno, grade, gradequiz, selectassinment]).then(axios.spread((...responses) => {
                     setUsername(responses[0].data.username)
-                    setAllsubjects(responses[1].data)
+                    // setAllsubjects(responses[1].data)
                     setCoursecomponents(responses[2].data)
                     setGradeexams(responses[3].data)
                     setGradeassinments(responses[4].data)
@@ -93,6 +101,7 @@ const CourseUpload = (props) => {
         }
         checkcredentials()
     }, [])
+
     function handlesubjects(e) {
         if (e.target.value === '') {
             setGradeassinmentsdisplay('none')

@@ -58,13 +58,21 @@ export default function CourseUpload(props) {
                     },
                     headers: { Authorization: `JWT ${accessString}` },
                 });
+                await axios.post(apiPath + '/getassignSubjects', {
+                    username: props.username
+                }).then(sub => {
+                    console.log("username", props.username)
+                    console.log("sub", sub.data)
+                    setAllsubjects(sub.data)
+
+                })
                 const subjects = await axios.get(apiPath + '/findsubjects')
 
                 const coursecomponent = await axios.get(apiPath + '/findcoursecomponents')
                 axios.all([user, subjects, coursecomponent]).then(axios.spread((...responses) => {
                     setUsername(responses[0].data.username)
 
-                    setAllsubjects(responses[1].data)
+                   // setAllsubjects(responses[1].data)
                     let arr = []
                     setCompare(responses[2].data.map((planet) => {
                         return planet.Type
@@ -91,7 +99,7 @@ export default function CourseUpload(props) {
 
     }
 
-  async  function searchFiles() {
+    async function searchFiles() {
         setSearchloader("searching...")
         axios.get(apiPath + `/findcoursefiles/${username}/${subject}`).then(response => {
             setInitialFiles(response.data)
@@ -209,12 +217,12 @@ export default function CourseUpload(props) {
                     });
                     console.log(allcourses.length)
                     if (allcourses.length === 0) {
-                        setTabledisplay('none') 
+                        setTabledisplay('none')
                         setSearchloader('')
                         alert.show('sorry no uploads ', {
                             position: 'bottom right',
                         })
-        
+
                     }
                     else {
                         setFinalfiles(downloadall)

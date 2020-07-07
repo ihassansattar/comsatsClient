@@ -58,6 +58,15 @@ export default function LabUpload(props) {
                     },
                     headers: { Authorization: `JWT ${accessString}` },
                 });
+                await axios.post(apiPath + '/getassignSubjects', {
+                    username: props.username
+                }).then(sub => {
+                    console.log("username", props.username)
+                    console.log("sub", sub.data)
+                    let duplicateSubjects = sub.data
+                    duplicateSubjects = duplicateSubjects.filter(sin => sin.Lab === 'YES')
+                    setAllsubjects([...duplicateSubjects])
+                })
                 const subjects = await axios.get(apiPath + '/labsubjects')
                 const coursecomponent = await axios.get(apiPath + '/findlabcomponents')
                 const gradeexam = await axios.get(apiPath + '/findgradeexams')
@@ -74,7 +83,7 @@ export default function LabUpload(props) {
 
                 axios.all([user, subjects, coursecomponent, gradeexam, gradeassinment, selectquiz, selectexam, selectno, grade, gradequiz, selectassinment]).then(axios.spread((...responses) => {
                     setUsername(responses[0].data.username)
-                    setAllsubjects(responses[1].data)
+                    // setAllsubjects(responses[1].data)
                     setCoursecomponents(responses[2].data)
                     setGradeexams(responses[3].data)
                     setGradeassinments(responses[4].data)
@@ -95,6 +104,7 @@ export default function LabUpload(props) {
         }
         checkcredentials()
     }, [])
+
     function handlesubjects(e) {
         if (e.target.value === '') {
             setGradeassinmentsdisplay('none')

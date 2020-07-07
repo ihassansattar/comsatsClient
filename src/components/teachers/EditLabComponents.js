@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import {apiPath} from '../../config'
+import { apiPath } from '../../config'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import GetAppTwoToneIcon from '@material-ui/icons/GetAppTwoTone';
 import PDFProvider from './pdfProvider';
@@ -17,7 +17,7 @@ import { Redirect } from 'react-router-dom';
 export default function CourseUpload(props) {
     const alert = useAlert()
     const [modalOpen, setmodalOpen] = useState(false)
-  
+
     const [finalfiles, setFinalfiles] = useState()
     const [initialfiles, setInitialFiles] = useState([]);
     const [allsubjects, setAllsubjects] = useState([]);
@@ -51,32 +51,41 @@ export default function CourseUpload(props) {
                     },
                     headers: { Authorization: `JWT ${accessString}` },
                 });
+                await axios.post(apiPath + '/getassignSubjects', {
+                    username: props.username
+                }).then(sub => {
+                    console.log("username", props.username)
+                    console.log("sub", sub.data)
+                    let duplicateSubjects = sub.data
+                    duplicateSubjects = duplicateSubjects.filter(sin => sin.Lab === 'YES')
+                    setAllsubjects([...duplicateSubjects])
+                })
                 const subjects = await axios.get(apiPath + '/labsubjects')
 
                 const coursecomponent = await axios.get(apiPath + '/findlabcomponents')
                 axios.all([user, subjects, coursecomponent]).then(axios.spread((...responses) => {
                     setUsername(responses[0].data.username)
 
-                    setAllsubjects(responses[1].data)
+                    //setAllsubjects(responses[1].data)
                     setCompare(responses[2].data.map((planet) => {
                         return planet.Type
                     }))
-                   
+
                     setLoadingUser(false)
 
-                    
+
                 })).catch(errors => {
-                 
+
                 })
-}
+            }
         }
         checkcredentials()
 
 
     }, [])
-   async function searchFiles() {
+    async function searchFiles() {
         setSearchloader('searching...')
-      await  axios.get(apiPath + `/findlabfiles/${username}/${subject}`).then(response => {
+        await axios.get(apiPath + `/findlabfiles/${username}/${subject}`).then(response => {
             setInitialFiles(response.data)
             let allcourses = []
             let downloadall = []
@@ -86,7 +95,7 @@ export default function CourseUpload(props) {
             allfiles = response.data.map((planet) => {
                 return planet
             });
-           
+
             let j = [];
             sortedfiles = compare.map((planet) => {
                 return response.data.map((planet2) => {
@@ -104,20 +113,20 @@ export default function CourseUpload(props) {
             allcourses = j.map((planet) => {
                 return JSON.stringify(planet)
             });
-           
+
             if (allcourses == '') {
-                alert.show(' Sorry no uploads',{
+                alert.show(' Sorry no uploads', {
                     position: 'bottom right',
                 })
             }
             else {
                 setFinalfiles(downloadall)
                 setTabledisplay('')
-}
-setSearchloader('')
+            }
+            setSearchloader('')
         })
-        
-       
+
+
     }
     function searchbysubject(e) {
         if (e.target.value) {
@@ -161,9 +170,9 @@ setSearchloader('')
         setSelectedFile(file)
 
     }
-       function deletefiles(id) {
+    function deletefiles(id) {
         setSearchloader('deleting...')
-        axios.delete(apiPath +  `/deletelabfiles/${id}`)
+        axios.delete(apiPath + `/deletelabfiles/${id}`)
             .then(response => {
                 axios.get(apiPath + `/findlabfiles/${username}/${subject}`).then(response => {
                     setInitialFiles(response.data)
@@ -175,7 +184,7 @@ setSearchloader('')
                     allfiles = response.data.map((planet) => {
                         return planet
                     });
-                    
+
                     let j = [];
                     sortedfiles = compare.map((planet) => {
                         return response.data.map((planet2) => {
@@ -186,7 +195,7 @@ setSearchloader('')
                         });
 
                     });
-                   
+
 
                     downloadall = j.map((planet) => {
                         return planet.url
@@ -195,14 +204,14 @@ setSearchloader('')
                     allcourses = j.map((planet) => {
                         return JSON.stringify(planet)
                     });
-                   
-                    if (allcourses.length===0) {
-                        setTabledisplay('none') 
+
+                    if (allcourses.length === 0) {
+                        setTabledisplay('none')
                         setSearchloader('')
                         alert.show('sorry no uploads ', {
                             position: 'bottom right',
                         })
-        
+
                         // alert('no record found')
                         // window.location.reload();
                     }
@@ -212,17 +221,17 @@ setSearchloader('')
 
 
                     }
-setSearchloader('')
+                    setSearchloader('')
                 })
                 setTabledisplay('')
-               
+
             })
     }
     function startmerge() {
         let tempMsg
         PDFProvider.mergeBetweenPDF(finalfiles)
             .then((res) => {
-               
+
                 if (res && res.hasOwnProperty("pdfFile")) {
                     if (res.pdfFile) {
                         if (res.pdfNotMergedList.length !== finalfiles.length) {
@@ -237,23 +246,23 @@ setSearchloader('')
                                 tempMsg = "Following files have problem and need to be merged manually: " + res.pdfNotMergedList.join(", ")
                             }
                             setmodalOpen(true)
-                           
+
 
                         }
                         else {
                             tempMsg = "Merge totally successfull and downloaded!"
-                           setmodalOpen(true)
-                        alert.success('succesfully downloaded')
+                            setmodalOpen(true)
+                            alert.success('succesfully downloaded')
                         }
                     }
                 } else {
                     tempMsg = "Internal error at merging! Send this error to the developer in charge."
                     modalOpen(true)
-                    
+
                 }
             })
             .catch((err) => {
-               
+
             })
 
 
@@ -264,7 +273,7 @@ setSearchloader('')
                 <p>
                     There was a problem accessing your data. Please go login again.
                     <Redirect to={`/Login`} />
-                    </p>
+                </p>
             </div>
         );
     }
@@ -272,10 +281,10 @@ setSearchloader('')
         return (
             <div>
                 <div class="text-center">
-  <div className="spinner-border" role="status">
-    <span className="sr-only">Loading...</span>
-  </div>
-</div>
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -288,7 +297,7 @@ setSearchloader('')
             <td>{allcourses.type}</td>
             <td>{allcourses.subtype}</td>
             <td onClick={(event) => upadate(allcourses.id)}><UpdateIcon /></td>
-            
+
             <td><a download="myimage" href={allcourses.url} target="_blank" ><GetAppTwoToneIcon /></a></td>
             <td className=" btn-danger" onClick={(event) => deletefiles(allcourses.id)}><DeleteForeverIcon /></td>
         </tr>
@@ -325,34 +334,34 @@ setSearchloader('')
                     </Container>
                 </div>
                 <div style={{ display: `${searchdisplay}` }}>
-                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <select className="browser-default custom-select" onChange={searchbysubject}>
-                        <option value=''>CHOOSE SUBJECT</option>
-                        {optionsubjects}
-                    </select>
-        <button className="input-group-text  btn-dark" disabled={!subject||searchloader} id="inputGroupFileAddon01" onClick={searchFiles}>{searchloader?searchloader:'search'}</button>
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <select className="browser-default custom-select" onChange={searchbysubject}>
+                            <option value=''>CHOOSE SUBJECT</option>
+                            {optionsubjects}
+                        </select>
+                        <button className="input-group-text  btn-dark" disabled={!subject || searchloader} id="inputGroupFileAddon01" onClick={searchFiles}>{searchloader ? searchloader : 'search'}</button>
 
-                </div >
+                    </div >
 
 
-                <table className="table table-hover table-dark table-responsive-xl" style=
-                    {{ color: 'white', display: `${tablediplay}` }}>
-                    <thead>
-                        <tr>
-                            <th scope="col">FileName</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">subtype</th>
-                            <th scope="col">Download Link</th>
-                            <th scope="col">Delete</th>
+                    <table className="table table-hover table-dark table-responsive-xl" style=
+                        {{ color: 'white', display: `${tablediplay}` }}>
+                        <thead>
+                            <tr>
+                                <th scope="col">FileName</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">subtype</th>
+                                <th scope="col">Download Link</th>
+                                <th scope="col">Delete</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {optionfiles}
-                        <tr><th colspan="9" class=" btn-primary"><button className="input-group-text  btn-primary"  onClick={startmerge}>Download All</button></th></tr>
-                    </tbody>
-                </table>
-            </div></div>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {optionfiles}
+                            <tr><th colspan="9" class=" btn-primary"><button className="input-group-text  btn-primary" onClick={startmerge}>Download All</button></th></tr>
+                        </tbody>
+                    </table>
+                </div></div>
         )
     }
 

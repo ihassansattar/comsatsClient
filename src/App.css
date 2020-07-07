@@ -41,3 +41,7 @@ table thead:nth-child(3){
     transform: rotate(360deg);
   }
 }
+.MuiCircularProgress-root{
+  width: 70px!important;
+  height: 70px!important;
+}
