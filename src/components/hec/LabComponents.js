@@ -34,10 +34,7 @@ export default function CourseUpload(props) {
                 field: 'name',
                 sort: 'asc',
             },
-            {
-                label: 'File Name',
-                field: 'filename',
-            },
+            
             {
                 label: 'Type',
                 field: 'type',
@@ -204,7 +201,6 @@ export default function CourseUpload(props) {
         data.rows.push(
             {
                 name: allcourses.username,
-                filename: allcourses.filename,
                 type: allcourses.type,
                 subtype: allcourses.subtype,
                 download: <a download="myimage" href={allcourses.url} target="_blank" ><GetAppTwoToneIcon /></a>

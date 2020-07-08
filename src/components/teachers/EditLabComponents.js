@@ -293,7 +293,6 @@ export default function CourseUpload(props) {
     );
     let optionfiles = initialfiles.map((allcourses) =>
         <tr>
-            <td>{allcourses.filename}</td>
             <td>{allcourses.type}</td>
             <td>{allcourses.subtype}</td>
             <td onClick={(event) => upadate(allcourses.id)}><UpdateIcon /></td>
@@ -348,7 +347,7 @@ export default function CourseUpload(props) {
                         {{ color: 'white', display: `${tablediplay}` }}>
                         <thead>
                             <tr>
-                                <th scope="col">FileName</th>
+                                
                                 <th scope="col">Type</th>
                                 <th scope="col">subtype</th>
                                 <th scope="col">Download Link</th>
