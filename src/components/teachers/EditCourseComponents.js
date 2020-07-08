@@ -72,7 +72,7 @@ export default function CourseUpload(props) {
                 axios.all([user, subjects, coursecomponent]).then(axios.spread((...responses) => {
                     setUsername(responses[0].data.username)
 
-                   // setAllsubjects(responses[1].data)
+                    // setAllsubjects(responses[1].data)
                     let arr = []
                     setCompare(responses[2].data.map((planet) => {
                         return planet.Type
@@ -245,7 +245,7 @@ export default function CourseUpload(props) {
                 if (res && res.hasOwnProperty("pdfFile")) {
                     if (res.pdfFile) {
                         if (res.pdfNotMergedList.length !== finalfiles.length) {
-                            const fileName = "output_merge_" + new Date().toISOString().replace(":", "_").replace("T", "_").replace("Z", "") + ".pdf"
+                            const fileName = `${props.username}`+' '+`${subject}` + new Date().toISOString().replace(":", "_").replace("T", "_").replace("Z", "") + ".pdf"
                             saveSync(res.pdfFile, fileName)
                         }
 
@@ -293,8 +293,7 @@ export default function CourseUpload(props) {
                     })
 
                 }
-            })
-            .catch((err) => {
+            }).catch((err) => {
 
             })
 
@@ -326,7 +325,6 @@ export default function CourseUpload(props) {
     );
     let optionfiles = initialfiles.map((allcourses) =>
         <tr>
-            <td>{allcourses.filename}</td>
             <td>{allcourses.type}</td>
             <td>{allcourses.subtype}</td>
 
@@ -385,7 +383,6 @@ export default function CourseUpload(props) {
                         {{ color: 'white', display: `${tablediplay}` }}>
                         <thead>
                             <tr>
-                                <th scope="col">FileName</th>
                                 <th scope="col">Type</th>
                                 <th scope="col">subtype</th>
                                 <th scope="col">Update</th>
